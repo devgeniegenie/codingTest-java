@@ -12,7 +12,7 @@ public class Q3 {
         for(int i = 0; i < n; i++){
             arr[i] = scanner.nextInt();
         }
-        for (Integer integer : mySolution2(n, m, arr)) {
+        for (Integer integer : solution(n, m, arr)) {
             System.out.print(integer + " ");
         }
 
@@ -48,5 +48,21 @@ public class Q3 {
         return result;
     }
 
+    static List<Integer> solution(int n, int m, int[] arr){
+        List<Integer> result = new ArrayList<>();
+        HashMap<Integer, Integer> HM = new HashMap<>();
+        for(int i = 0; i < m - 1; i ++) {
+            HM.put(arr[i], HM.getOrDefault(arr[i], 0) + 1);
+        }
+        int lt = 0;
+        for(int rt = m - 1; rt < n; rt ++) {
+            HM.put(arr[rt], HM.getOrDefault(arr[rt],0) + 1);
+            result.add(HM.size());
+            HM.put(arr[lt], HM.getOrDefault(arr[lt],0) - 1);
+            if(HM.get(arr[lt]) == 0) HM.remove(arr[lt]);
+            lt++;
+        }
+        return result;
+    }
 
 }
